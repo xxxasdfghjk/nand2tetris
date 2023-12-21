@@ -14,5 +14,21 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
+    DMux4Way(in=in,sel=sel[0..1],a=o00,b=o01,c=o10,d=o11);
+
+    DMux(in=o00,sel=sel[2],a=o000,b=o100);
+    DMux(in=o01,sel=sel[2],a=o001,b=o101);
+    DMux(in=o10,sel=sel[2],a=o010,b=o110);
+    DMux(in=o11,sel=sel[2],a=o011,b=o111);
+
+    And(a=o000,b=in,out=a);
+    And(a=o001,b=in,out=b);
+    And(a=o010,b=in,out=c);
+    And(a=o011,b=in,out=d);
+    And(a=o100,b=in,out=e);
+    And(a=o101,b=in,out=f);
+    And(a=o110,b=in,out=g);
+    And(a=o111,b=in,out=h);
+
     //// Replace this comment with your code.
 }
