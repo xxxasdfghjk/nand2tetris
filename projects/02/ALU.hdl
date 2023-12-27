@@ -41,5 +41,74 @@ CHIP ALU {
         ng;      // if (out < 0)  equals 1, else 0
 
     PARTS:
+    //x
+    Not(in=zx,out=xzeror);
+
+    And16(a=x,b[0]=xzeror,
+    b[1]=xzeror,
+    b[2]=xzeror,
+    b[3]=xzeror,
+    b[4]=xzeror,
+    b[5]=xzeror,
+    b[6]=xzeror,
+    b[7]=xzeror,
+    b[8]=xzeror,
+    b[9]=xzeror,
+    b[10]=xzeror,
+    b[11]=xzeror,
+    b[12]=xzeror,
+    b[13]=xzeror,
+    b[14]=xzeror,
+    b[15]=xzeror,
+    out=xo1);
+    
+    Not16(in=xo1,out=xnoto1);
+    Mux16(a=xo1,b=xnoto1,sel=nx,out=xo2);
+
+    //y
+    Not(in=zy,out=yzeror);
+    And16(a=y, 
+    b[0]=yzeror,
+    b[1]=yzeror,
+    b[2]=yzeror,
+    b[3]=yzeror,
+    b[4]=yzeror,
+    b[5]=yzeror,
+    b[6]=yzeror,
+    b[7]=yzeror,
+    b[8]=yzeror,
+    b[9]=yzeror,
+    b[10]=yzeror,
+    b[11]=yzeror,
+    b[12]=yzeror,
+    b[13]=yzeror,
+    b[14]=yzeror,
+    b[15]=yzeror,
+    out=yo1);
+
+    Not16(in=yo1,out=ynoto1);
+    Mux16(a=yo1,b=ynoto1,sel=ny,out=yo2);
+
+    Add16(a=xo2,b=yo2,out=xpy);
+    And16(a=xo2,b=yo2,out=xay);
+
+    Mux16(a=xay,b=xpy,sel=f,out=xyo1);
+
+    Not16(in=xyo1,out=xynoto1);
+    Mux16(a=xyo1,b=xynoto1,sel=no,out=res);
+    Not16(in=res,out=n1);
+    Not16(in=n1,out=out);
+    
+    Or16Way(in=res,out=sigres);
+    Not(in=sigres,out=zr);
+
+    IsNegative(in=res,out=ng);
+    
+
+
+    
+    
+    
+
     //// Replace this comment with your code.
 }
